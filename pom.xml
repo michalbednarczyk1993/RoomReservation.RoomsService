@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.room-reservation</groupId>
-	<artifactId>reservation-service</artifactId>
+	<artifactId>room-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Reservation Service</name>
+	<name>Room Service</name>
 	<description>Part of &quot;Room Reservation&quot; project, which is responsible for room reservation by users.</description>
 	<properties>
 		<java.version>17</java.version>
@@ -25,15 +25,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.projectlombok</groupId>-->
-<!--			<artifactId>lombok</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20211205</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -46,14 +52,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<!--				<configuration>-->
-<!--					<excludes>-->
-<!--						<exclude>-->
-<!--							<groupId>org.projectlombok</groupId>-->
-<!--							<artifactId>lombok</artifactId>-->
-<!--						</exclude>-->
-<!--					</excludes>-->
-<!--				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>
