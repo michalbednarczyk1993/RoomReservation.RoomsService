@@ -1,15 +1,17 @@
 package com.roomreservation.reservationservice.core.service;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.roomreservation.reservationservice.core.domain.RoomEntity;
 import com.roomreservation.reservationservice.core.repository.IRoomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class RoomService {
     private final IRoomRepository roomRepo;
@@ -28,8 +30,8 @@ public class RoomService {
      *      * }
      * @return
      */
-    public List<Object> getAllRooms() {
-        List<RoomEntity> roomList = roomRepo.findAll();
+    public List<Object> getAllRooms(Integer guestsNum, Integer daysNum, Date startDate) {
+        List<RoomEntity> roomList = filterRooms(guestsNum, daysNum, startDate);
         JSONArray result = new JSONArray();
 
         for (RoomEntity room : roomList) {
@@ -42,6 +44,21 @@ public class RoomService {
         }
 
         return result.toList();
+    }
+
+    private List<RoomEntity> filterRooms(Integer guestsNum, Integer daysNum, Date startDate) {
+        List<RoomEntity> filteredRooms = roomRepo.findAll()
+                .stream()
+                .filter(room -> room.getCapacity() >= guestsNum)
+                //TODO: should be also at least one room of selected type since startDate for selected number of days (daysNum)
+                .toList();
+
+        if(filteredRooms.isEmpty()) {
+            log.info("There are no rooms that match selected filters");
+        }
+
+        return filteredRooms;
+
     }
 }
 
