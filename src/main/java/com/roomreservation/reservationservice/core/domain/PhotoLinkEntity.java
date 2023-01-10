@@ -1,6 +1,7 @@
 package com.roomreservation.reservationservice.core.domain;
 
 import lombok.*;
+
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -9,23 +10,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="room")
-public class RoomEntity {
+@Table(name = "photo_link")
+public class PhotoLinkEntity {
 
     @Id
+    @GeneratedValue
     @Setter(AccessLevel.NONE)
     @ToString.Exclude
-    @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Long id;
 
-    @Column(name = "number", nullable = false, unique = true)
-    private String number;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "link", nullable = false, unique = true)
+    private String link;
 
     @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
-    private RoomTypeEntity typeId;
+    @JoinColumn(name = "room_id")
+    private RoomTypeEntity roomId;
+
 }
