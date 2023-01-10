@@ -26,6 +26,9 @@ public class RoomTypeEntity {
     @Column(nullable = false)
     private Integer capacity;
 
+    @Column(nullable = false)
+    private String name;
+
     @ToString.Exclude
     @OneToMany(mappedBy = "roomId")
     private List<PhotoLinkEntity> photoLinks;
