@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -19,13 +17,13 @@ public class RoomTypeEntity {
     @GeneratedValue
     @Setter(AccessLevel.NONE)
     @ToString.Exclude
-    @Column(name = "id", nullable = false, unique = true, insertable = false)
+    @Column(nullable = false, unique = true, insertable = false)
     private Long id;
 
-    @Column(name = "base_price", nullable = false)
+    @Column(nullable = false)
     private BigDecimal basePrice;
 
-    @Column(name = "capacity", nullable = false)
+    @Column(nullable = false)
     private Integer capacity;
 
     @ToString.Exclude
