@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -17,14 +15,14 @@ public class PhotoLinkEntity {
     @GeneratedValue
     @Setter(AccessLevel.NONE)
     @ToString.Exclude
-    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
+    @Column(nullable = false, unique = true, insertable = false, updatable = false)
     private Long id;
 
-    @Column(name = "link", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String link;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn
     private RoomTypeEntity roomId;
 
 }
