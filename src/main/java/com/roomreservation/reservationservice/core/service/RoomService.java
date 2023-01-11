@@ -1,6 +1,5 @@
 package com.roomreservation.reservationservice.core.service;
 
-import com.roomreservation.reservationservice.core.domain.RoomEntity;
 import com.roomreservation.reservationservice.core.domain.RoomTypeEntity;
 import com.roomreservation.reservationservice.core.repository.IPhotoLinkRepository;
 import com.roomreservation.reservationservice.core.repository.IRoomRepository;
@@ -9,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Date;
 import java.util.List;
@@ -27,86 +25,69 @@ public class RoomService {
         this.photoLinkRepo = photoLinkRepository;
     }
 
-    /**
-     *      * JSON structure:
-     *      * {
-     *      *     name: String,
-     *      *     capacity: Integer,
-     *      *     basePrice: Double,
-     *      *     photo: href_to_data_storage
-     *      * }
-     * @return
-     */
     public List<Object> getAllRooms(Integer guestsNum, Integer daysNum, Date startDate) {
-        if (guestsNum == null || guestsNum <= 0 ||
-            daysNum   == null || daysNum   <= 0 ||
-            startDate == null || startDate.before(new Date(System.currentTimeMillis()))) {
-            throw new IllegalArgumentException("Invalid search parameters"); //TODO: Create custom exception
-        }
+        List<RoomTypeEntity> roomList;
 
-        List<RoomTypeEntity> roomList = filterRoomTypes(guestsNum, daysNum, startDate);
+        if (guestsNum == null) guestsNum = 1;
+        if (daysNum == null || startDate == null)
+            roomList = filterRoomTypes(guestsNum);
+        else
+            roomList = filterRoomTypes(guestsNum, daysNum, startDate);
+
         JSONArray result = new JSONArray();
 
         for (RoomTypeEntity roomType : roomList) {
             JSONObject record = new JSONObject();
-            record.put("name", roomType.getName());
-            record.put("capacity", roomType.getCapacity());
-            record.put("basePrice", roomType.getBasePrice());
-            //record.put("photo", roomType.getPhotoLinks()); //TODO: store an array with links to photos
+            record.put("room_type.name", roomType.getName());
+            record.put("room_type.capacity", roomType.getCapacity());
+            record.put("room_type.basePrice", roomType.getBasePrice());
+            record.put("room_type.main_photo", roomType.getMainPhoto());
             result.put(record);
         }
 
         return result.toList();
     }
 
-    public List<Object> getAllRooms(Integer guestNum) {
-        return null;
+    public String getRoomTypeDetails(Long roomTypeId) {
+        RoomTypeEntity roomType = roomTypeRepo.getReferenceById(roomTypeId);
+        JSONObject result = new JSONObject();
+
+        result.put("name", roomType.getName());
+        result.put("description", roomType.getDescription());
+        result.put("photos", roomType.getPhotoLinks());
+        // TODO: add "additional service" options
+        // TODO: count price at another service
+
+        return result.toString();
     }
 
-    /**
-     *  Get all rooms types that match selected properties:
-     *  - guest number is grater that provided
-     *  - room is available at selected date (there is need to get data from reservation service)
-     *  - get room types that does not duplicate
-     *
-     * @param guestsNum
-     * @param daysNum
-     * @param startDate
-     * @return
-     */
     private List<RoomTypeEntity> filterRoomTypes(Integer guestsNum, Integer daysNum, Date startDate) {
-        List<RoomTypeEntity> roomTypes = roomTypeRepo.findAll().stream()
-                .filter(roomType -> roomType.getCapacity() >= guestsNum).toList();
-                //TODO: should be also at least one room of selected type since startDate for selected number of days (daysNum)
-
-        if(roomTypes.isEmpty()) {
-            log.info("There are no rooms that match selected filters");
+        if (guestsNum <= 0 || daysNum   <= 0 || startDate.before(new Date(System.currentTimeMillis()))) {
+            throw new IllegalArgumentException("Invalid search parameters");
         }
 
-        return roomTypes;
+        List<RoomTypeEntity> roomTypes = roomTypeRepo.findAll().stream()
+                .filter(roomType -> roomType.getCapacity() >= guestsNum).toList();
+        /*
+          TODO: add connection to RoomReservation.OperationsAtReservations service.
+           There should be also at least one room of selected type since startDate for selected number of days (daysNum).
+         */
 
+        log.info("There are " + roomTypes.size() + " rooms that match selected filters");
+
+        return roomTypes;
+    }
+
+    private List<RoomTypeEntity> filterRoomTypes(Integer guestsNum) {
+        if (guestsNum <= 0) {
+            throw new IllegalArgumentException("Invalid search parameters");
+        }
+
+        List<RoomTypeEntity> roomTypes = roomTypeRepo.findAll().stream()
+                .filter(roomType -> roomType.getCapacity() >= guestsNum).toList();
+
+        log.info("There are " + roomTypes.size() + " rooms that match selected filters");
+
+        return roomTypes;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
