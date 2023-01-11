@@ -29,12 +29,17 @@ public class RoomTypeEntity {
     @Column(nullable = false)
     private String name;
 
+    private String description;
+
     @ToString.Exclude
     @OneToMany(mappedBy = "roomId")
     private List<PhotoLinkEntity> photoLinks;
 
+    @JoinColumn
+    @OneToOne
+    private PhotoLinkEntity mainPhoto;
+
     @ToString.Exclude
     @OneToMany(mappedBy = "typeId")
     private List<RoomEntity> rooms;
-
 }
