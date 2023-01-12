@@ -62,9 +62,10 @@ public class RoomController {
      * if those was not available for this room type.
      * JSON structure:
      * {
+     *      room_type.name: room type name
+     *      room_type.capacity: room type capacity
      *      room_type.description: room type description
      *      room_type.photos: list of hrefs to data storage with room type photo
-     *      room_type.selected_services: list of selected extra services
      *      room_type.counted_price: total price of reservation
      *      room_type.selected_date: selected date of stay (YYYY-MM-DD)
      *      room_type.number_of_days: number of days chosen for stay
@@ -91,10 +92,15 @@ public class RoomController {
             @RequestBody(required = false) String selectedServices,
             @RequestBody(required = false) Date selectedDate,
             @RequestBody(required = false) Integer numberOfDays,
+            @RequestBody(required = false) Integer numberOfGuests,
             @RequestBody(required = false) Integer selectedMonth) {
-
-        String result = roomService.getRoomTypeDetails(roomTypeId);
-
-        return null;
+        return roomService.getRoomTypeDetails(
+                roomTypeId,
+                currency,
+                selectedServices,
+                selectedDate,
+                numberOfDays,
+                numberOfGuests,
+                selectedMonth);
     }
 }

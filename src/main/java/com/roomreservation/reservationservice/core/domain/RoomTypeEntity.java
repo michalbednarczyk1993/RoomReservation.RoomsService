@@ -3,7 +3,6 @@ package com.roomreservation.reservationservice.core.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 @ToString
@@ -21,7 +20,7 @@ public class RoomTypeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private BigDecimal basePrice;
+    private Double basePrice;
 
     @Column(nullable = false)
     private Integer capacity;

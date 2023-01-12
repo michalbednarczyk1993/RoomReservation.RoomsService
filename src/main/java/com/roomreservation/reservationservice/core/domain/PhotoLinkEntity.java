@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "photo_link")
 public class PhotoLinkEntity {
-
     @Id
     @GeneratedValue
     @Setter(AccessLevel.NONE)
@@ -24,5 +23,4 @@ public class PhotoLinkEntity {
     @ManyToOne
     @JoinColumn
     private RoomTypeEntity roomId;
-
 }
