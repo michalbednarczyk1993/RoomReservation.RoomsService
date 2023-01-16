@@ -23,6 +23,6 @@ public class RoomEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private RoomTypeEntity typeId;
+    @JoinColumn(name="type_id", nullable = false)
+    private RoomTypeEntity type;
 }

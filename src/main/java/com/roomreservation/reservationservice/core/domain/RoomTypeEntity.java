@@ -31,14 +31,19 @@ public class RoomTypeEntity {
     private String description;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "roomId")
+    @OneToMany(mappedBy = "room")
     private List<PhotoLinkEntity> photoLinks;
 
-    @JoinColumn
-    @OneToOne
-    private PhotoLinkEntity mainPhoto;
-
     @ToString.Exclude
-    @OneToMany(mappedBy = "typeId")
+    @OneToMany(mappedBy = "type")
     private List<RoomEntity> rooms;
+
+    public PhotoLinkEntity getMainPhoto() {
+        List<PhotoLinkEntity> links = getPhotoLinks();
+        if (links.size() > 0) {
+            return links.stream().filter(PhotoLinkEntity::isMain).findFirst().orElseGet(() -> links.get(0));
+        } else {
+            throw new EntityNotFoundException("There are no photos related to this room type!");
+        }
+    }
 }
