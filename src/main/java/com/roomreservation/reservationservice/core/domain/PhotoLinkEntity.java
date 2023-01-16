@@ -20,7 +20,13 @@ public class PhotoLinkEntity {
     @Column(nullable = false, unique = true)
     private String link;
 
+    private Boolean main = false;
+
     @ManyToOne
-    @JoinColumn
-    private RoomTypeEntity roomId;
+    @JoinColumn(name="room_id")
+    private RoomTypeEntity room;
+
+    public Boolean isMain() {
+        return main;
+    }
 }
