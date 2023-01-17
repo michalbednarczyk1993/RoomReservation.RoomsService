@@ -1,7 +1,7 @@
-package com.roomreservation.reservationservice.core.service;
+package com.roomreservation.roomservice.core.service;
 
-import com.roomreservation.reservationservice.core.domain.RoomTypeEntity;
-import com.roomreservation.reservationservice.core.repository.IRoomTypeRepository;
+import com.roomreservation.roomservice.core.domain.RoomTypeEntity;
+import com.roomreservation.roomservice.core.repository.IRoomTypeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -45,6 +45,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+<!--		&lt;!&ndash;	Azure Blob Storage dependencies	&ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>com.azure.spring</groupId>-->
+<!--			<artifactId>spring-cloud-azure-starter-storage-blob</artifactId>-->
+<!--			<version>4.5.0</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>commons-fileupload</groupId>-->
+<!--			<artifactId>commons-fileupload</artifactId>-->
+<!--			<version>1.4</version>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>

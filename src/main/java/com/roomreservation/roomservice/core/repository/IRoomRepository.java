@@ -1,6 +1,6 @@
-package com.roomreservation.reservationservice.core.repository;
+package com.roomreservation.roomservice.core.repository;
 
-import com.roomreservation.reservationservice.core.domain.RoomEntity;
+import com.roomreservation.roomservice.core.domain.RoomEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

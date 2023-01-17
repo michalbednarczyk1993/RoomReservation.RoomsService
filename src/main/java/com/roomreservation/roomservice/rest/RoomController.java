@@ -1,6 +1,6 @@
-package com.roomreservation.reservationservice.rest;
+package com.roomreservation.roomservice.rest;
 
-import com.roomreservation.reservationservice.core.service.RoomService;
+import com.roomreservation.roomservice.core.service.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
