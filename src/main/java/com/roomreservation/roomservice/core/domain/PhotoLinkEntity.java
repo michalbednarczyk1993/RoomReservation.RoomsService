@@ -1,4 +1,4 @@
-package com.roomreservation.reservationservice.core.domain;
+package com.roomreservation.roomservice.core.domain;
 
 import lombok.*;
 

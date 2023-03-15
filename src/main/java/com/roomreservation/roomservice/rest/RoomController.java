@@ -1,6 +1,6 @@
-package com.roomreservation.reservationservice.rest;
+package com.roomreservation.roomservice.rest;
 
-import com.roomreservation.reservationservice.core.service.RoomService;
+import com.roomreservation.roomservice.core.service.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.List;
 
-@RequestMapping("/rooms")
-@Controller
+@RestController
+// RestTemplate doesn't work with @Controller
 public class RoomController {
     private final RoomService roomService;
 
@@ -36,7 +36,7 @@ public class RoomController {
      * @param startDate - first day of reservation (YYYY-MM-DD);
      * @return list of JSON objects that represent room types which satisfy conditions
      */
-    @GetMapping("/all")
+    @GetMapping("")
     public List<Object> getAllRoomTypes(
             @RequestBody(required = false) Integer guestsNum,
             @RequestBody(required = false) Integer daysNum,
@@ -49,6 +49,11 @@ public class RoomController {
         }
 
         return result;
+    }
+
+    @GetMapping("/mock")
+    public String mockedRequest() {
+        return "response from room-service";
     }
 
     /**

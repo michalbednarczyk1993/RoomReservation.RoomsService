@@ -14,7 +14,7 @@
 	<name>Room Service</name>
 	<description>Part of &quot;Room Reservation&quot; project, which is responsible for room reservation by users.</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
