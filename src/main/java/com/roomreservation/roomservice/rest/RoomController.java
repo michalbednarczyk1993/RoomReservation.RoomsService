@@ -2,15 +2,14 @@ package com.roomreservation.roomservice.rest;
 
 import com.roomreservation.roomservice.core.service.RoomService;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
 
-@RestController
 // RestTemplate doesn't work with @Controller
+@RestController
 public class RoomController {
     private final RoomService roomService;
 
