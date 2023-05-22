@@ -1,15 +1,21 @@
 package com.roomreservation.roomservice.rest;
 
 import com.roomreservation.roomservice.core.service.RoomService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+//import javax.validation.Valid;
 
 import java.util.Date;
 import java.util.List;
 
 // RestTemplate doesn't work with @Controller
-@RestController
+@RestController("/api")
 public class RoomController {
     private final RoomService roomService;
 
@@ -17,24 +23,37 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    /**
-     * Return all room types available in hotel with selected criteria in JSON format.
-     * In case when guestNumber is equal to null, then default value (1) is provided.
-     * In case when daysNumber or startDate is equal to null, then system will return all possible values
-     * that suit to guestNumber condition.
-     * JSON structure:
-     * {
-     *     room_type.name: String,
-     *     room_type.capacity: Integer,
-     *     room_type.basePrice: Double,
-     *     room_type.main_photo: href_to_data_storage
-     * }
-     *
-     * @param guestsNum - number of guests that will be placed in one room;
-     * @param daysNum - number of days that will take reservation;
-     * @param startDate - first day of reservation (YYYY-MM-DD);
-     * @return list of JSON objects that represent room types which satisfy conditions
-     */
+
+
+            /**
+             * Return all room types available in hotel with selected criteria in JSON format.
+             * In case when guestNumber is equal to null, then default value (1) is provided.
+             * In case when daysNumber or startDate is equal to null, then system will return all possible values
+             * that suit to guestNumber condition.
+             * JSON structure:
+             * {
+             *     room_type.name: String,
+             *     room_type.capacity: Integer,
+             *     room_type.basePrice: Double,
+             *     room_type.main_photo: href_to_data_storage
+             * }
+             *
+             * @param guestsNum - number of guests that will be placed in one room;
+             * @param daysNum - number of days that will take reservation;
+             * @param startDate - first day of reservation (YYYY-MM-DD);
+             * @return list of JSON objects that represent room types which satisfy conditions
+             */
+    @ApiOperation(
+            "Return all room types available in hotel with selected criteria in JSON format.\n" +
+            "In case when guestNumber is equal to null, then default value (1) is provided.\n" +
+            "In case when daysNumber or startDate is equal to null, then system will return all possible values\n" +
+            "that suit to guestNumber condition.\n" +
+            "JSON structure:\n" +
+            "{\n" +
+            "    room_type.name: String,\n" +
+            "    room_type.capacity: Integer,\n" +
+            "    room_type.basePrice: Double,\n" +
+            "    room_type.main_photo: href_to_data_storage")
     @GetMapping("")
     public List<Object> getAllRoomTypes(
             @RequestBody(required = false) Integer guestsNum,
