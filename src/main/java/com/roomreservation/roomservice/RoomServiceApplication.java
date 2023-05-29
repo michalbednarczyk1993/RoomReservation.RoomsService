@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -24,7 +25,8 @@ public class RoomServiceApplication {
 	public Docket get() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.paths(PathSelectors.ant("/api/**"))
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(createApiInfo());
 	}
