@@ -1,5 +1,6 @@
 # RoomReservation.RoomReservationService
-Part of "Room Reservation" project, which is responsible for operations at rooms
+Part of "Room Reservation" project, which is responsible for operations at rooms.
+This microservice will be written in Quarkus framework.
 
 Access to Swagger UI with: http://localhost:8080/swagger-ui.html
 
