@@ -1,93 +1,127 @@
 package com.roomreservation.roomservice.rest;
 
+import com.roomreservation.roomservice.core.dto.BasicRoomInfoDto;
 import com.roomreservation.roomservice.core.dto.RoomDto;
 import com.roomreservation.roomservice.core.service.RoomService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@Api(value = "Kontroler do zarządzania pokojami")
-@RestController
-public class RoomController {
+import java.util.List;
+
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Room Controller",
+                description = "Kontroler do zarządzania pokojami",
+                version = "0.1"))
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class RoomResource {
+
     private final RoomService roomService;
 
-    RoomController(RoomService roomService) {
+    public RoomResource(RoomService roomService) {
         this.roomService = roomService;
     }
 
-    @ApiOperation(value = "Zwraca listę wszystkich pokoi")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Sukces"),
-            @ApiResponse(code = 204, message = "Brak dostępnych zasobów spełniających kryteria"),
-            @ApiResponse(code = 500, message = "Błąd serwera"),
-            @ApiResponse(code = 501, message = "Usługa jeszcze nie jest gotowa")
+
+    @Operation(description = "Zwraca listę wszystkich pokoi")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera")
     })
-    @GetMapping
-    public ResponseEntity<?> getAllRooms() {
-    //public ResponseEntity<List<RoomDto>> getAllRooms() {
-        return new ResponseEntity<>("Usługa jeszcze nie jest gotowa", HttpStatus.NOT_IMPLEMENTED);
+    @GET
+    public Response getAllRooms() {
+        return Response
+                .status(Response.Status.OK)
+                .entity(roomService.getAllRooms())
+                .build();
     }
 
-    @ApiOperation(value = "Zwraca szczegółowe informacje na temat konkretnego pokoju")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Sukces"),
-            @ApiResponse(code = 204, message = "Brak dostępnych zasobów spełniających kryteria"),
-            @ApiResponse(code = 400, message = "Nieprawidłowe dane w żądaniu"),
-            @ApiResponse(code = 500, message = "Błąd serwera"),
-            @ApiResponse(code = 501, message = "Usługa jeszcze nie jest gotowa")
+    @Operation(description = "Zwraca listę wszystkich typów pokoi")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera")
     })
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRoom(@PathVariable("id") Long id) {
-    //public ResponseEntity<RoomDto> getRoom(@PathVariable("id") Long id) {
-        return new ResponseEntity<>("Usługa jeszcze nie jest gotowa", HttpStatus.NOT_IMPLEMENTED);
+    @GET
+    public Response getAllRoomTypes() {
+        return Response
+                .status(Response.Status.OK)
+                .entity(roomService.getAllRoomTypes())
+                .build();
     }
 
-    @ApiOperation(value = "Tworzy nowy pokój")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Sukces"),
-            @ApiResponse(code = 204, message = "Brak dostępnych zasobów spełniających kryteria"),
-            @ApiResponse(code = 400, message = "Nieprawidłowe dane w żądaniu"),
-            @ApiResponse(code = 500, message = "Błąd serwera"),
-            @ApiResponse(code = 501, message = "Usługa jeszcze nie jest gotowa")
+    @Operation(description = "Zwraca szczegółowe informacje na temat konkretnego pokoju")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "400", description = "Nieprawidłowe dane w żądaniu"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera")
     })
-    @PostMapping
-    public ResponseEntity<?> createRoom(@RequestBody RoomDto room) {
-    // public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room) {
-        return new ResponseEntity<>("Usługa jeszcze nie jest gotowa", HttpStatus.NOT_IMPLEMENTED);
+    @GET
+    public Response getRoom(@NotNull @QueryParam("id") Long id) {
+        return Response
+                .status(Response.Status.OK)
+                .entity(roomService.getRoomDetails(id))
+                .build();
     }
 
-    @ApiOperation(value = "Aktualizuje informacje o konkretnym pokoju")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Sukces"),
-            @ApiResponse(code = 204, message = "Brak dostępnych zasobów spełniających kryteria"),
-            @ApiResponse(code = 400, message = "Nieprawidłowe dane w żądaniu"),
-            @ApiResponse(code = 500, message = "Błąd serwera"),
-            @ApiResponse(code = 501, message = "Usługa jeszcze nie jest gotowa")
+    @Operation(description = "Tworzy nowy pokój")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "400", description = "Nieprawidłowe dane w żądaniu"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera"),
     })
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateRoom(@PathVariable("id") Long id, @RequestBody RoomDto room) {
-    // public ResponseEntity<RoomDto> updateRoom(@PathVariable("id") Long id, @RequestBody RoomDto room) {
-        return new ResponseEntity<>("Usługa jeszcze nie jest gotowa", HttpStatus.NOT_IMPLEMENTED);
+    @POST
+    public Response createRoom(@NotNull RoomDto room) {
+        return Response
+                .status(Response.Status.NOT_IMPLEMENTED)
+                .entity("Usługa jeszcze nie jest gotowa")
+                .build();
     }
 
-    @ApiOperation(value = "Usuwa konkretny pokój")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Sukces"),
-            @ApiResponse(code = 204, message = "Brak dostępnych zasobów spełniających kryteria"),
-            @ApiResponse(code = 400, message = "Nieprawidłowe dane w żądaniu"),
-            @ApiResponse(code = 500, message = "Błąd serwera"),
-            @ApiResponse(code = 501, message = "Usługa jeszcze nie jest gotowa")
+    @Operation(description = "Aktualizuje informacje o konkretnym pokoju")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "400", description = "Nieprawidłowe dane w żądaniu"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera"),
+            @APIResponse(responseCode = "501", description = "Usługa jeszcze nie jest gotowa")
     })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id) {
-        return new ResponseEntity<>("Usługa jeszcze nie jest gotowa", HttpStatus.NOT_IMPLEMENTED);
+    @PATCH
+    public Response updateRoom(@QueryParam("id") Long id, RoomDto room) {
+        return Response
+                .status(Response.Status.NOT_IMPLEMENTED)
+                .entity("Usługa jeszcze nie jest gotowa")
+                .build();
     }
 
-    @GetMapping("/mock")
+    @Operation(description = "Usuwa konkretny pokój")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Sukces"),
+            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "400", description = "Nieprawidłowe dane w żądaniu"),
+            @APIResponse(responseCode = "500", description = "Błąd serwera"),
+            @APIResponse(responseCode = "501", description = "Usługa jeszcze nie jest gotowa")
+    })
+    @DELETE
+    public Response deleteRoom(@QueryParam("id") Long id) {
+        return Response
+                .status(Response.Status.NOT_IMPLEMENTED)
+                .entity("Usługa jeszcze nie jest gotowa")
+                .build();
+    }
+
+    @GET
+    @Path("/mock")
     public String mockedRequest() {
         return "response from room-service";
     }

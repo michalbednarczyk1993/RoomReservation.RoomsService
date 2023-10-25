@@ -46,4 +46,32 @@ public class RoomTypeEntity {
             throw new EntityNotFoundException("There are no photos related to this room type!");
         }
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Double getBasePrice() {
+        return basePrice;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<PhotoLinkEntity> getPhotoLinks() {
+        return photoLinks;
+    }
+
+    public List<RoomEntity> getRooms() {
+        return rooms;
+    }
 }

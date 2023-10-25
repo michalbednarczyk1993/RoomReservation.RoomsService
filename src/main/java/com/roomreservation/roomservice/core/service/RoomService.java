@@ -1,45 +1,51 @@
 package com.roomreservation.roomservice.core.service;
 
+import com.roomreservation.roomservice.core.domain.RoomEntity;
 import com.roomreservation.roomservice.core.domain.RoomTypeEntity;
-import com.roomreservation.roomservice.core.repository.IRoomTypeRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.data.util.Pair;
-import org.springframework.stereotype.Service;
+import com.roomreservation.roomservice.core.dto.BasicRoomInfoDto;
+import com.roomreservation.roomservice.core.dto.RoomDetailsDto;
+import com.roomreservation.roomservice.core.dto.RoomTypeDto;
+import com.roomreservation.roomservice.core.repository.RoomRepository;
+import com.roomreservation.roomservice.core.repository.RoomTypeRepository;
+import com.roomreservation.roomservice.exceptions.NoContentException;
+import jakarta.enterprise.context.RequestScoped;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Slf4j
-@Service
+@RequestScoped
 public class RoomService {
-    private final IRoomTypeRepository roomTypeRepo;
+    private final RoomTypeRepository roomTypeRepo;
+    private final RoomRepository roomRepo;
 
-    RoomService(IRoomTypeRepository roomTypeRepository) {
-        this.roomTypeRepo = roomTypeRepository;
+    public RoomService(RoomTypeRepository roomTypeRepo, RoomRepository roomRepo) {
+        this.roomTypeRepo = roomTypeRepo;
+        this.roomRepo = roomRepo;
     }
 
-    public List<Object> getAllRooms(Integer guestsNum, Integer daysNum, Date startDate) {
-        List<RoomTypeEntity> roomList;
+    public List<BasicRoomInfoDto> getAllRooms() {
+        List<BasicRoomInfoDto> result = roomRepo.listAll()
+                .stream()
+                .map(BasicRoomInfoDto::toDto)
+                .collect(Collectors.toList());
 
-        if (guestsNum == null) guestsNum = 1;
-        if (daysNum == null || startDate == null)
-            roomList = filterRoomTypes(guestsNum);
-        else
-            roomList = filterRoomTypes(guestsNum, daysNum, startDate);
+        if (result.isEmpty()) throw new NoContentException();
+        return result;
+    }
 
-        JSONArray result = new JSONArray();
+    public List<RoomTypeDto> getAllRoomTypes() {
+        List<RoomTypeDto> result = roomTypeRepo.listAll()
+                .stream()
+                .map(RoomTypeDto::toDto)
+                .collect(Collectors.toList());
 
-        for (RoomTypeEntity roomType : roomList) {
-            JSONObject record = new JSONObject();
-            record.put("room_type.name", roomType.getName());
-            record.put("room_type.capacity", roomType.getCapacity());
-            record.put("room_type.basePrice", roomType.getBasePrice());
-            record.put("room_type.main_photo", roomType.getMainPhoto());
-            result.put(record);
-        }
+        if (result.isEmpty()) throw new NoContentException();
+        return result;
+    }
 
-        return result.toList();
+    public RoomDetailsDto getRoomDetails(Long id) {
+        RoomEntity entity = roomRepo.findByIdOptional(id).orElseThrow(NoContentException::new);
+        return RoomDetailsDto.toDto(entity);
     }
 
     public String getRoomTypeDetails(Long roomTypeId, String currency, String selectedServices, Date selectedDate,

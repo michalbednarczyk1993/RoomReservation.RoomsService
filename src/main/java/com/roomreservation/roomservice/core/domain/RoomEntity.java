@@ -1,14 +1,5 @@
 package com.roomreservation.roomservice.core.domain;
 
-import lombok.*;
-import javax.persistence.*;
-
-@ToString
-@Getter
-@Setter
-@Builder
-@Entity
-@Table(name="room")
 public class RoomEntity {
 
     @Id
@@ -26,4 +17,20 @@ public class RoomEntity {
     @ManyToOne
     @JoinColumn(name="type_id", nullable = false)
     private RoomTypeEntity type;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public RoomTypeEntity getType() {
+        return type;
+    }
 }
