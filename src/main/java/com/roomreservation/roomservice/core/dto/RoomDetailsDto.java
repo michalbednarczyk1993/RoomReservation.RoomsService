@@ -7,7 +7,7 @@ import java.util.List;
 
 public record RoomDetailsDto(
         Long id,
-        String number,
+        Integer number,
         String roomName,
         String typeName,
         Double basePrice,
@@ -18,13 +18,13 @@ public record RoomDetailsDto(
 
     public static RoomDetailsDto toDto(RoomEntity entity) {
         return new RoomDetailsDto(
-                entity.getId(),
-                entity.getNumber(),
-                entity.getName(),
-                entity.getType().getName(),
-                entity.getType().getBasePrice(),
-                entity.getType().getCapacity(),
-                entity.getType().getDescription(),
-                entity.getType().getPhotoLinks());
+                entity.id,
+                entity.number,
+                entity.name,
+                entity.type.getName(),
+                entity.type.getBasePrice(),
+                entity.type.getCapacity(),
+                entity.type.getDescription(),
+                entity.type.getPhotoLinks());
     }
 }

@@ -1,32 +1,30 @@
 package com.roomreservation.roomservice.core.domain;
 
-import lombok.*;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
-
-@ToString
-@Getter
-@Setter
 @Entity
-@Table(name = "photo_link")
-public class PhotoLinkEntity {
-    @Id
-    @GeneratedValue
-    @Setter(AccessLevel.NONE)
-    @ToString.Exclude
-    @Column(nullable = false, unique = true, insertable = false, updatable = false)
-    private Long id;
-
+@Table(name = "PHOTO_LINK")
+public class PhotoLinkEntity extends PanacheEntity {
+//    There are no Repository, since this entity is using the active record pattern
+    //    Be aware, that Quarkus encourage to use public fields in entity classes
+    //    NoArgs constructor is provided by Panche
+    //    ref. https://quarkus.io/guides/hibernate-orm-panache
     @Column(nullable = false, unique = true)
-    private String link;
+    public String link;
 
-    private Boolean main = false;
+    public Boolean main;
 
     @ManyToOne
     @JoinColumn(name="room_id")
-    private RoomTypeEntity room;
+    public RoomTypeEntity room;
 
-    public Boolean isMain() {
-        return main;
+    public PhotoLinkEntity() {
+    }
+
+    public PhotoLinkEntity(String link, Boolean main, RoomTypeEntity room) {
+        this.link = link;
+        this.main = main;
+        this.room = room;
     }
 }

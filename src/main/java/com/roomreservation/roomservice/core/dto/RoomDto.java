@@ -1,30 +1,14 @@
 package com.roomreservation.roomservice.core.dto;
 
-import com.roomreservation.roomservice.core.domain.RoomEntity;
-import io.swagger.annotations.ApiModel;
-import lombok.Builder;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-@Builder
-@ApiModel(description = "Szczegóły na temat pokoi")
-public record RoomDto() {
-    public interface OnCreate{}
-    public interface OnUpdate{}
+public record RoomDto(
+        @Positive Integer number,
+        @NotBlank String name,
+        @NotNull Long roomTypeId,
+        @NotNull String roomTypeName
+) {
 
-    public static RoomDto toDto(@NonNull RoomEntity entity) {
-        return RoomDto.builder()
-                // wypełnij pola
-                .build();
-    }
-
-    public RoomEntity toEntity() {
-        return RoomEntity.builder()
-                // wypełnij pola
-                .build();
-    }
-
-    public RoomEntity updateEntity(RoomEntity entity) {
-        //if (name != null) entity.setName(name);
-        return entity;
-    }
 }

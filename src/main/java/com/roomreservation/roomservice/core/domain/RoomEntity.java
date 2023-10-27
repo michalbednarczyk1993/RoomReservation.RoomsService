@@ -1,36 +1,32 @@
 package com.roomreservation.roomservice.core.domain;
 
-public class RoomEntity {
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.*;
 
-    @Id
-    @Setter(AccessLevel.NONE)
-    @ToString.Exclude
-    @GeneratedValue
-    @Column(nullable = false, unique = true, insertable = false, updatable = false)
-    private Long id;
+@Entity
+@Table(name = "ROOM")
+public class RoomEntity extends PanacheEntity {
+    //    Be aware, that Quarkus encourage to use public fields in entity classes
+    //    ref. https://quarkus.io/guides/hibernate-orm-panache
 
     @Column(nullable = false, unique = true)
-    private String number;
+    public Integer number;
 
-    private String name;
+    @Column(nullable = false)
+    public String name;
 
     @ManyToOne
     @JoinColumn(name="type_id", nullable = false)
-    private RoomTypeEntity type;
+    public RoomTypeEntity type;
 
-    public Long getId() {
-        return id;
+    // NoArgs constructor is provided by Panche
+
+    public RoomEntity() {
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public RoomTypeEntity getType() {
-        return type;
+    public RoomEntity(Integer number, String name, RoomTypeEntity type) {
+        this.number = number;
+        this.name = name;
+        this.type = type;
     }
 }

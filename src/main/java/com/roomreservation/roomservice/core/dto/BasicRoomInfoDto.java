@@ -5,7 +5,7 @@ import com.roomreservation.roomservice.core.domain.RoomEntity;
 
 public record BasicRoomInfoDto(
         Long id,
-        String number,
+        Integer number,
         String roomName,
         String typeName,
         Integer typeCapacity,
@@ -14,12 +14,12 @@ public record BasicRoomInfoDto(
 
     public static BasicRoomInfoDto toDto(RoomEntity entity) {
         return new BasicRoomInfoDto(
-                entity.getId(),
-                entity.getNumber(),
-                entity.getName(),
-                entity.getType().getName(),
-                entity.getType().getCapacity(),
-                entity.getType().getBasePrice());
+                entity.id,
+                entity.number,
+                entity.name,
+                entity.type.getName(),
+                entity.type.getCapacity(),
+                entity.type.getBasePrice());
     }
 
 }
