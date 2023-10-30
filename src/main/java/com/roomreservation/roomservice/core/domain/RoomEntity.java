@@ -19,7 +19,6 @@ public class RoomEntity extends PanacheEntity {
     @JoinColumn(name="type_id", nullable = false)
     public RoomTypeEntity type;
 
-    // NoArgs constructor is provided by Panche
 
     public RoomEntity() {
     }

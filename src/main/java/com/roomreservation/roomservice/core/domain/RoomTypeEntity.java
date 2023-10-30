@@ -11,7 +11,6 @@ import java.util.Optional;
 public class RoomTypeEntity extends PanacheEntity{
     //    There are no Repository, since this entity is using the active record pattern
     //    Be aware, that Quarkus encourage to use public fields in entity classes
-    //    NoArgs constructor is provided by Panche
     //    ref. https://quarkus.io/guides/hibernate-orm-panache
 
 //    @Id @GeneratedValue private Long id;
@@ -31,62 +30,6 @@ public class RoomTypeEntity extends PanacheEntity{
 
     @OneToMany(mappedBy = "type")
     public List<RoomEntity> rooms;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(Double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<PhotoLinkEntity> getPhotoLinks() {
-        return photoLinks;
-    }
-
-    public void setPhotoLinks(List<PhotoLinkEntity> photoLinks) {
-        this.photoLinks = photoLinks;
-    }
-
-    public List<RoomEntity> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<RoomEntity> rooms) {
-        this.rooms = rooms;
-    }
 
     public static Optional<RoomTypeEntity> findByNameOptional(String name) {
         return find("name", name).firstResultOptional();

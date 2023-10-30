@@ -16,13 +16,13 @@ public record RoomTypeDto(
 ) {
     public static RoomTypeDto toDto(RoomTypeEntity entity) {
         return new RoomTypeDto(
-                entity.getId(),
-                entity.getBasePrice(),
-                entity.getCapacity(),
-                entity.getName(),
-                entity.getDescription(),
-                entity.getPhotoLinks(),
-                entity.getRooms().size());
+                entity.id,
+                entity.basePrice,
+                entity.capacity,
+                entity.name,
+                entity.description,
+                entity.photoLinks,
+                entity.rooms.size());
     }
 
 }

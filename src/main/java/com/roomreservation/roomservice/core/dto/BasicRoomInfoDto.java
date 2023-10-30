@@ -17,9 +17,9 @@ public record BasicRoomInfoDto(
                 entity.id,
                 entity.number,
                 entity.name,
-                entity.type.getName(),
-                entity.type.getCapacity(),
-                entity.type.getBasePrice());
+                entity.type.name,
+                entity.type.capacity,
+                entity.type.basePrice);
     }
 
 }

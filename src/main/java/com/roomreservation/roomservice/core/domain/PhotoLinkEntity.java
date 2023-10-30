@@ -6,9 +6,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "PHOTO_LINK")
 public class PhotoLinkEntity extends PanacheEntity {
-//    There are no Repository, since this entity is using the active record pattern
+    //    There are no Repository, since this entity is using the active record pattern
     //    Be aware, that Quarkus encourage to use public fields in entity classes
-    //    NoArgs constructor is provided by Panche
     //    ref. https://quarkus.io/guides/hibernate-orm-panache
     @Column(nullable = false, unique = true)
     public String link;

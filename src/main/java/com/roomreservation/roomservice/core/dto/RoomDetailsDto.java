@@ -21,10 +21,10 @@ public record RoomDetailsDto(
                 entity.id,
                 entity.number,
                 entity.name,
-                entity.type.getName(),
-                entity.type.getBasePrice(),
-                entity.type.getCapacity(),
-                entity.type.getDescription(),
-                entity.type.getPhotoLinks());
+                entity.type.name,
+                entity.type.basePrice,
+                entity.type.capacity,
+                entity.type.description,
+                entity.type.photoLinks);
     }
 }

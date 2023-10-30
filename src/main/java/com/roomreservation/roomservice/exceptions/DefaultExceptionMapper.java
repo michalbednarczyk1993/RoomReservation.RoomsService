@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 @Provider
 public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
-
     private static final Logger LOGGER = Logger.getLogger(DefaultExceptionMapper.class.getName());
 
     @Override

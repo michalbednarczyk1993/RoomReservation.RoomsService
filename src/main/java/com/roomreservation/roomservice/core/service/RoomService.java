@@ -6,10 +6,10 @@ import com.roomreservation.roomservice.core.dto.BasicRoomInfoDto;
 import com.roomreservation.roomservice.core.dto.RoomDetailsDto;
 import com.roomreservation.roomservice.core.dto.RoomDto;
 import com.roomreservation.roomservice.core.dto.RoomTypeDto;
-import com.roomreservation.roomservice.core.repository.RoomTypeRepository;
 import com.roomreservation.roomservice.exceptions.NoContentException;
+import io.quarkus.panache.common.Page;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
 
 import java.util.*;
@@ -17,14 +17,9 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class RoomService {
-//    @Inject
-//    RoomTypeRepository roomTypeRepo;
-//    @Inject
-//    RoomRepository roomRepo;
 
-
-    public List<BasicRoomInfoDto> getAllRooms() {
-        List<RoomEntity> rooms = RoomEntity.listAll();
+    public List<BasicRoomInfoDto> getAllRooms(Integer page, Integer size) {
+        List<RoomEntity> rooms = RoomEntity.findAll().page(Page.of(page, size)).list();
         List<BasicRoomInfoDto> result = rooms.stream().map(
                 BasicRoomInfoDto::toDto).collect(Collectors.toList());
 
@@ -33,7 +28,7 @@ public class RoomService {
     }
 
     public List<RoomTypeDto> getAllRoomTypes() {
-        List<RoomTypeEntity> roomTypes = RoomTypeEntity.listAll();
+        List<RoomTypeEntity> roomTypes = RoomTypeEntity.findAll(Sort.ascending("capacity")).list();
         List<RoomTypeDto> result = roomTypes
                 .stream()
                 .map(RoomTypeDto::toDto)
