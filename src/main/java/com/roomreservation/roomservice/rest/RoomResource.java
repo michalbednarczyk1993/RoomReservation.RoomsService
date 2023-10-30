@@ -1,6 +1,7 @@
 package com.roomreservation.roomservice.rest;
 
 import com.roomreservation.roomservice.core.dto.RoomDto;
+import com.roomreservation.roomservice.core.service.RetryableRequestService;
 import com.roomreservation.roomservice.core.service.RoomService;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotNull;
@@ -25,11 +26,14 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public class RoomResource {
 
     RoomService roomService;
+    RetryableRequestService retryService;
 
     @Inject
-    public RoomResource(RoomService roomService) {
+    public RoomResource(RoomService roomService, RetryableRequestService retryService) {
         this.roomService = roomService;
+        this.retryService = retryService;
     }
+
 
 
     @Operation(description = "Zwraca listę wszystkich pokoi")
@@ -127,5 +131,7 @@ public class RoomResource {
     public String mockedRequest() {
         return "response from room-service";
     }
+
+
 
 }
