@@ -16,7 +16,7 @@ public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
         LOGGER.log(Level.SEVERE, exception.toString());
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                 .entity("Błąd serwera")
-                .type("text/plain")
+                .type("application/json")
                 .build();
     }
 }

@@ -13,7 +13,6 @@ public class RoomTypeEntity extends PanacheEntity{
     //    Be aware, that Quarkus encourage to use public fields in entity classes
     //    ref. https://quarkus.io/guides/hibernate-orm-panache
 
-//    @Id @GeneratedValue private Long id;
     @Column(nullable = false)
     public Double basePrice;
 

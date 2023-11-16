@@ -2,7 +2,6 @@ package com.roomreservation.roomservice.core.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -61,12 +60,5 @@ public class RetryableRequestService {
             throw new WebApplicationException(message);
         }
         return response;
-    }
-
-    @ApplicationScoped
-    @RestClient
-    public interface RetryableRestClient {
-        @GET
-        Response get(URI url);
     }
 }

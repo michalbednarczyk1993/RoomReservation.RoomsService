@@ -34,8 +34,6 @@ public class RoomResource {
         this.retryService = retryService;
     }
 
-
-
     @Operation(description = "Zwraca listę wszystkich pokoi")
     @APIResponses(value = {
             @APIResponse(responseCode = "200", description = "Sukces"),

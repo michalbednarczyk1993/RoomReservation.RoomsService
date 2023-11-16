@@ -11,14 +11,14 @@ import java.util.logging.Logger;
 @Provider
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
-    private static final Logger LOGGER = Logger.getLogger(DefaultExceptionMapper.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ConstraintViolationExceptionMapper.class.getName());
 
     @Override
     public Response toResponse(ConstraintViolationException exception) {
         LOGGER.log(Level.INFO, exception.toString());
         return Response.status(Response.Status.BAD_REQUEST)
                 .entity("Nieprawidłowe dane w żądaniu")
-                .type("text/plain")
+                .type("application/json")
                 .build();
     }
 }
