@@ -1,13 +1,12 @@
 package com.roomreservation.roomservice.rest;
 
-import com.roomreservation.roomservice.core.domain.TestEntity;
 import com.roomreservation.roomservice.core.service.RetryableRequestService;
 import com.roomreservation.roomservice.core.service.TestService;
 import io.quarkus.arc.profile.UnlessBuildProfile;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -82,7 +81,7 @@ public class TestResource {
             @APIResponse(responseCode = "500", description = "Błąd serwera"),
     })
     @GET
-    public Response readData(@QueryParam("text") @NotEmpty String text) {
+    public Response readData(@QueryParam("text") @Pattern(regexp = "^(?!\\d+$).+") @NotEmpty String text) {
         String data = testService.readData(text);
         return Response
                 .status(Response.Status.OK)
