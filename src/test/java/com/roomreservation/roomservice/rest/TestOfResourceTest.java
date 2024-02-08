@@ -52,7 +52,7 @@ class TestOfResourceTest {
 
     @Test
     @Order(2)
-    void getTestRoomsWithNotExistedContent() {
+    void getTestRoomsWithNoExistedContent() {
         given()
                 .contentType(ContentType.JSON)
                 .queryParam("text", "incorrect")

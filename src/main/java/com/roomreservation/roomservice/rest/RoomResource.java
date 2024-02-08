@@ -129,7 +129,4 @@ public class RoomResource {
     public String mockedRequest() {
         return "response from room-service";
     }
-
-
-
 }
