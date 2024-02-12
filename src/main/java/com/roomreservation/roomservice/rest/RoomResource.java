@@ -36,8 +36,8 @@ public class RoomResource {
 
     @Operation(description = "Zwraca listę wszystkich pokoi")
     @APIResponses(value = {
-            @APIResponse(responseCode = "200", description = "Sukces"),
-            @APIResponse(responseCode = "204", description = "Brak dostępnych zasobów spełniających kryteria"),
+            @APIResponse(responseCode = "200"),
+            @APIResponse(responseCode = "404", description = "Brak dostępnych zasobów spełniających kryteria"),
             @APIResponse(responseCode = "500", description = "Błąd serwera")
     })
     @GET

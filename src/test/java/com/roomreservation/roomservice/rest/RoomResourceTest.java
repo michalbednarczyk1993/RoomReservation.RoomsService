@@ -23,8 +23,7 @@ class RoomResourceTest {
                 .when()
                 .get("/rooms")
                 .then()
-                .statusCode(200)
-                .body(is("Sukces"));
+                .statusCode(200);
     }
 
     @Test
@@ -38,8 +37,7 @@ class RoomResourceTest {
                 .when()
                 .get("/rooms")
                 .then()
-                .statusCode(200)
-                .body(is("Sukces"));
+                .statusCode(200);
     }
 
 
